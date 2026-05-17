@@ -1,1 +1,1 @@
-//link - [https://atharv200.github.io/ResistorProj/](https://atharv200.github.io/ResistorColorCodeCalculator/)
+//link - https://atharv200.github.io/ResistorColorCodeCalculator/
