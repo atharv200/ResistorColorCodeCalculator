@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Resistance Calculator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" 
+        rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css" >
+  </head>
+
+  <body>
+    <header>
+      <p class="tag">ECE LAB UTILITY TOOL</p>
+      <h1>Resistor Color Code <span>Calculator</span></h1>
+      <p class="subtitle">Select color bands to decode resistance instantly</p>
+    </header>
+
+    <main>
+      <div class="toggle-wrap">
+        <button class="toggle-btn active" id="btn-3band" onclick="setBands(3)">3 Band</button>
+        <button class="toggle-btn" id="btn-4band" onclick="setBands(4)">4 Band</button>
+        <button class="toggle-btn" id="btn-5band" onclick="setBands(5)">5 Band</button>
+      </div>
+
+      <div class="resistor-wrap">
+        <svg
+          class="resistor-svg"  
+          viewBox="0 0 400 80"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Resistor diagram"
+        > 
+          <line x1="0" y1="40" x2="70" y2="40" stroke="#999" stroke-width="3" />
+          <line x1="330" y1="40" x2="400" y2="40" stroke="#999" stroke-width="3" />
+          <rect x="70" y="14" width="260" height="52" fill="#D4B483"/>
+          <rect x="70" y="14" width="260" height="16" fill="rgba(255,255,255,0.15)"/>
+          <rect id="band1" x="100" y="14" width="15" height="52" fill="#ccc"/>
+          <rect id="band2" x="132" y="14" width="15" height="52" fill="#ccc"/>
+          <rect id="band3" x="174" y="14" width="15" height="52" fill="#ccc"/>
+          <rect id="band4" x="222" y="14" width="15" height="52" fill="#ccc" opacity="0"/>
+          <rect id="band5" x="282" y="14" width="15" height="52" fill="#ccc" opacity="0"/>
+        </svg>
+      </div>
+
+     
+      <div class="selectors" id="selectors">
+
+        <div class="selector-group" id="group-band1">
+          <label for="select-band1">Band 1 <span class="label-hint">1st Digit</span></label>
+          <select id="select-band1" class="color-select" onchange="calculate()">
+            <option value="">Pick</option>
+            <option value="0">Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+            <option value="7">Violet</option>
+            <option value="8">Grey</option>
+            <option value="9">White</option>
+          </select>
+        </div>
+
+        <div class="selector-group" id="group-band2">
+          <label for="select-band2">Band 2 <span class="label-hint">2nd Digit</span></label>
+          <select id="select-band2" class="color-select" onchange="calculate()">
+            <option value="">Pick</option>
+            <option value="0">Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+            <option value="7">Violet</option>
+            <option value="8">Grey</option>
+            <option value="9">White</option>
+          </select>
+        </div>
+
+        <div class="selector-group" id="group-band3" style="display: none;">
+          <label for="select-band3">Band 3 <span class="label-hint">3rd Digit</span></label>
+          <select id="select-band3" class="color-select" onchange="calculate()" >
+            <option value="">Pick</option>
+            <option value="0">Black</option>
+            <option value="1">Brown</option>
+            <option value="2">Red</option>
+            <option value="3">Orange</option>
+            <option value="4">Yellow</option>
+            <option value="5">Green</option>
+            <option value="6">Blue</option>
+            <option value="7">Violet</option>
+            <option value="8">Grey</option>
+            <option value="9">White</option>
+          </select>
+        </div>
+
+        <div class="selector-group" id="group-band4">
+          <label for="select-band4">Band 4 <span class="label-hint">Multiplier</span></label>
+          <select id="select-band4" class="color-select" onchange="calculate()">
+            <option value="">Pick</option>
+            <option value="1">Black</option>
+            <option value="10">Brown</option>
+            <option value="100">Red </option>
+            <option value="1000">Orange</option>
+            <option value="10000">Yellow</option>
+            <option value="100000">Green</option>
+            <option value="1000000">Blue</option>
+            <option value="10000000">Violet</option>
+            <option value="100000000">Grey</option>
+            <option value="1000000000">White</option>
+            <option value="0.1">Gold</option>
+            <option value="0.01">Silver</option>
+          </select>
+        </div>
+
+        <div class="selector-group" id="group-band5" style="display: none;" >
+          <label for="select-band5">Band 5 <span class="label-hint">Tolerance</span></label>
+          <select id="select-band5" class="color-select" onchange="calculate()">
+            <option value="">Pick</option>
+            <option value="±1%">Brown (±1%)</option>
+            <option value="±2%">Red (±2%)</option>
+            <option value="±0.05%">Orange (±0.05%)</option>
+            <option value="±0.02%">Yellow (±0.02%)</option>
+            <option value="±0.5%">Green (±0.5%)</option>
+            <option value="±0.25%">Blue (±0.25%)</option>
+            <option value="±0.1%">Violet (±0.1%)</option>
+            <option value="±0.01%">Grey (±0.01%)</option>
+            <option value="±5%">Gold (±5%)</option>
+            <option value="±10%">Silver (±10%)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="result-box">
+        <p class="result-label">Resistance</p>
+        <p class="result-value" id="result-value">— Ω</p>
+        <p class="result-tolerance" id="result-tolerance">Select all bands to calculate</p>
+      </div>
+
+      <details class="ref-table">
+        <summary>COLOR CODE REFERENCE TABLE</summary>
+        <table>
+          <thead>
+            <tr>
+              <th>Color</th>
+              <th>Digit</th>
+              <th>Multiplier</th>
+              <th>Tolerance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="dot" style="background:#000"></span>Black</td><td>0</td><td>x1</td><td>-</td></tr>
+            <tr><td><span class="dot" style="background:#6d3a1f"></span>Brown</td><td>1</td><td>x10</td><td>±1%</td></tr>
+            <tr><td><span class="dot" style="background:#cc0000"></span>Red</td><td>2</td><td>x100</td><td>±2%</td></tr>
+            <tr><td><span class="dot" style="background:#ff6600"></span>Orange</td><td>3</td><td>x1K</td><td>±0.05%</td></tr>
+            <tr><td><span class="dot" style="background:#ffcc00"></span>Yellow</td><td>4</td><td>x10K</td><td>±0.02%</td></tr>
+            <tr><td><span class="dot" style="background:#007a00"></span>Green</td><td>5</td><td>x100K</td><td>±0.5%</td></tr>
+            <tr><td><span class="dot" style="background:#0000cc"></span>Blue</td><td>6</td><td>x1M</td><td>±0.25%</td></tr>
+            <tr><td><span class="dot" style="background:#7b00d4"></span>Violet</td><td>7</td><td>x10M</td><td>±0.1%</td></tr>
+            <tr><td><span class="dot" style="background:#888"></span>Grey</td><td>8</td><td>x100M</td><td>±0.01%</td></tr>
+            <tr><td><span class="dot" style="background:#eee; border:1px solid #ccc"></span>White</td><td>9</td><td>x10B</td><td>—</td></tr>
+            <tr><td><span class="dot" style="background:#cfae5a"></span>Gold</td><td>—</td><td>×0.1</td><td>±5%</td></tr>
+            <tr><td><span class="dot" style="background:#aaa"></span>Silver</td><td>—</td><td>×0.01</td><td>±10%</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
